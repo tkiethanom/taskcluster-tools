@@ -110,6 +110,18 @@ module.exports = function(grunt) {
         sourceMap:            true
       }
     },
+    sass: {
+      dist: {
+        options: {
+          sourcemap: 'inline'
+        },
+        files: [{
+          expand: true,
+          src: ['**/*.scss', '!node_modules/**', '!build/**'],
+          ext: '.css'
+        }]
+      }
+    },
     connect: {
       server: {
         options: {
@@ -120,7 +132,7 @@ module.exports = function(grunt) {
     },
     watch: {
       options: {
-        spawn:                false,
+        spawn:                true,
         debounceDelay:        250
       },
       assets: {
@@ -143,7 +155,17 @@ module.exports = function(grunt) {
       },
       less: {
         tasks:  ['less'],
-        files:  ['**/*.less', '!node_modules/**', '!build/**']
+        files:  ['**/*.less', '!node_modules/**', '!build/**'],
+        options: {
+          livereload: true
+        }
+      },
+      sass: {
+        tasks:  ['sass'],
+        files:  ['**/*.scss', '!node_modules/**', '!build/**'],
+        options: {
+          livereload: true
+        }
       },
       Gruntfile: {
         options: {
@@ -204,7 +226,7 @@ module.exports = function(grunt) {
         options: {
           logConcurrentOutput:      false
         },
-        tasks:    ['render-favicons', 'copy', 'jade', 'less', 'envify']
+        tasks:    ['render-favicons', 'copy', 'jade', 'less', 'sass', 'envify']
       },
       develop: {
         options: {
@@ -235,7 +257,7 @@ module.exports = function(grunt) {
   grunt.registerTask(
     'build',
     "Build sources into the build/ folder",
-    ['render-favicons', 'copy', 'jade', 'less', 'envify', 'browserify']
+    ['render-favicons', 'copy', 'jade', 'less', 'sass', 'envify', 'browserify']
   );
   grunt.registerTask(
     'develop',
@@ -356,6 +378,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');

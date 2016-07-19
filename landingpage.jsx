@@ -1,36 +1,46 @@
 let React                   = require('react');
 let ReactDOM                = require('react-dom');
+
 let $                       = require('jquery');
+global.jQuery               = require('jquery');
+let bootstrap               = require('bootstrap');
+
 let bs                      = require('react-bootstrap');
 let menu                    = require('./menu');
 let format                  = require('./lib/format');
 
-/** Split an array into chunks */
-var chunks = function(array, size) {
-  var results = [];
-  while (array.length) {
-    results.push(array.splice(0, size));
-  }
-  return results;
-};
-
 // Render component
 $(function() {
-  var entries = menu.filter(function(entry) {
-    return entry.type !== 'divider' && entry.display;
-  }).map(function(entry, index) {
-    return (
-      <bs.Col md={4} sm={6} key={index}>
-        <a href={entry.link} className="landingpage-entry">
-          <h4>{entry.title}</h4>
-          <format.Icon  name={entry.icon || 'wrench'}
-                        size="3x"
-                        className="pull-left"
-                        style={{padding: '.2em .25em .15em'}}/>
-          <format.Markdown>{entry.description}</format.Markdown>
+  var groups = [
+    {title: 'Tasks', group: 'tasks'},
+    {title: 'Manager', group: 'manager'},
+    {title: 'Tools', group: 'tools'},
+    {title: 'External Links', group: 'external-links'}
+  ];
+
+  groups.forEach(function(obj, index){
+    var entries = menu.filter(function(entry) {
+      return entry.type !== 'divider' && entry.display && entry.group === obj.group;
+    });
+
+    obj.entries = entries.map(function(entry, index) {
+      return (
+        <a href="#" className="landingpage-entry" key={index} data-toggle="popover" data-content={entry.description} data-trigger="hover" data-placement="auto right">
+          <bs.Row >
+            <bs.Col md={9} sm={9} mdPush={3} smPush={3} >
+              <h4>{entry.title}</h4>
+            </bs.Col>
+            <bs.Col md={3} sm={3} mdPull={9} smPull={9} >
+              <format.Icon  name={entry.icon || 'wrench'}
+                            size="3x"
+                            className="pull-left"
+                            style={{padding: '.2em .25em .15em'}}/>
+            </bs.Col>
+            <div className="hide">{entry.description}</div>
+          </bs.Row>
         </a>
-      </bs.Col>
-    );
+      );
+    });
   });
 
   ReactDOM.render(
@@ -53,17 +63,24 @@ $(function() {
             </p>
           </bs.Col>
         </bs.Row>
+        <bs.Row>
       {
-        chunks(entries, 3).map(function(cols, index) {
+        groups.map(function(group, index) {
           return (
-            <bs.Row key={index}>
-            {cols}
-            </bs.Row>
+            <bs.Col md={3} sm={6} key={index} className="landingpage-group">
+              <h3>{group.title}</h3>
+              {group.entries}
+            </bs.Col>
           );
         })
       }
+        </bs.Row>
       </div>
     ),
     $('#container')[0]
   );
+
+  $(function () {
+    $('[data-toggle="popover"]').popover();
+  })
 });

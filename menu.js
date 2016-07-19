@@ -5,6 +5,7 @@ module.exports = [
   {
     title:          "Task Inspector",
     link:           '/task-inspector/',
+    group:          'tasks',
     icon:           'cube',
     display:        true,
     description: [
@@ -16,6 +17,7 @@ module.exports = [
   {
     title:          "Task-Graph Inspector",
     link:           '/task-graph-inspector/',
+    group:          'tasks',
     icon:           'cubes',
     display:        true,
     description: [
@@ -27,6 +29,7 @@ module.exports = [
   {
     title:          "Task Group Inspector",
     link:           '/task-group-inspector/',
+    group:          'tasks',
     icon:           'cubes',
     display:        true,
     description: [
@@ -38,6 +41,7 @@ module.exports = [
   {
     title:          "Task Creator",
     link:           '/task-creator/',
+    group:          'tasks',
     icon:           'pencil-square-o',
     display:        true,
     description: [
@@ -48,6 +52,7 @@ module.exports = [
   {
     title:          "AWS Provisioner",
     link:           '/aws-provisioner/',
+    group:          'manager',
     icon:           'server',
     display:        true,
     description: [
@@ -58,6 +63,7 @@ module.exports = [
   {
     title:          "Client Manager ",
     link:           '/auth/clients/',
+    group:          'manager',
     icon:           'users',
     display:        true,
     description: [
@@ -69,6 +75,7 @@ module.exports = [
   {
     title:          "Role Manager",
     link:           '/auth/roles/',
+    group:          'manager',
     icon:           'shield',
     display:        true,
     description: [
@@ -80,6 +87,7 @@ module.exports = [
   {
     title:          "Pulse Inspector",
     link:           '/pulse-inspector/',
+    group:          'tools',
     icon:           'wifi',
     display:        true,
     description: [
@@ -91,6 +99,7 @@ module.exports = [
   {
     title:          "Index Browser",
     link:           '/index/',
+    group:          'tools',
     icon:           'sitemap',
     display:        true,
     description: [
@@ -101,6 +110,7 @@ module.exports = [
   {
     title:          "Indexed Artifact Browser",
     link:           '/index/artifacts/',
+    group:          'tools',
     icon:           'folder-open',
     display:        true,
     description: [
@@ -111,6 +121,7 @@ module.exports = [
   {
     title:          "Hooks Manager",
     link:           '/hooks/',
+    group:          'manager',
     icon:           'repeat',
     display:        true,
     description: [
@@ -120,6 +131,7 @@ module.exports = [
   {
     title:          "Secrets Manager",
     link:           '/secrets/',
+    group:          'manager',
     icon:           'user-secret',
     display:        true,
     description: [
@@ -182,6 +194,7 @@ module.exports = [
   {
     title:          "Documentation",
     link:           'https://docs.taskcluster.net',
+    group:          'external-links',
     icon:           'book',
     display:        true,
     description: [
@@ -192,6 +205,7 @@ module.exports = [
   {
     title:          "Github Repository",
     link:           'https://github.com/taskcluster/taskcluster-tools',
+    group:          'external-links',
     icon:           'github',
     display:        true,
     description: [
@@ -203,6 +217,7 @@ module.exports = [
   {
     title:          "Bugzilla Product",
     link:           'https://bugzilla.mozilla.org/buglist.cgi?product=Taskcluster&bug_status=__open__',
+    group:          'external-links',
     icon:           'bug',
     display:        true,
     description: [
@@ -222,6 +237,7 @@ module.exports = [
   {
     title:        "Status",
     link:         "/status/",
+    group:        'tools',
     icon:         "cogs",
     display:      true,
     description: [
@@ -232,6 +248,7 @@ module.exports = [
   {
     title:        "Diagnostics",
     link:         "/diagnostics/",
+    group:        'tools',
     icon:         "cogs",
     display:      true,
     description:  [
