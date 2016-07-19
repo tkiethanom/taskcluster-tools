@@ -52,15 +52,6 @@ var TaskActions = React.createClass({
     var status  = this.props.status;
     var task    = this.state.task;
 
-    var taskStateLabel = {
-      unscheduled:      'label label-default',
-      pending:          'label label-info',
-      running:          'label label-primary',
-      completed:        'label label-success',
-      failed:           'label label-danger',
-      exception:        'label label-warning'
-    };
-
     var isResolved = [
         'completed',
         'failed',
