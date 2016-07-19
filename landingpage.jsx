@@ -25,7 +25,7 @@ $(function() {
 
     obj.entries = entries.map(function(entry, index) {
       return (
-        <a href="#" className="landingpage-entry" key={index} data-toggle="popover" data-content={entry.description} data-trigger="hover" data-placement="auto right">
+        <a href={entry.link} className="landingpage-entry" key={index} data-toggle="popover" data-content={entry.description} data-trigger="hover" data-placement="auto right">
           <bs.Row >
             <bs.Col md={9} sm={9} mdPush={3} smPush={3} >
               <h4>{entry.title}</h4>
