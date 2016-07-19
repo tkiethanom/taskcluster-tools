@@ -1,7 +1,6 @@
 @import "./lib/format";
 @import "./lib/custom-vars";
 
-
 .landingpage-entries > .row:first-of-type {
   background: #222222;
   color: white;
@@ -59,8 +58,8 @@
   background: $gray-lighter;
 }
 
-.landingpage-group{
-  .popover{
+.landingpage-group {
+  .popover {
     width: 400px;
   }
 }

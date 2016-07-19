@@ -1,9 +1,10 @@
 @import "taskinfo.scss";
+@import "taskactions.scss";
 
 .task-view > .nav-tabs li {
-	cursor:    pointer;
+  cursor: pointer;
 }
 
 .task-view > .tab-content > .tab-pane {
-	padding-top: 20px;
+  padding-top: 20px;
 }

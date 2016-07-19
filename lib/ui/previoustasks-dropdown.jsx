@@ -64,11 +64,19 @@ var PreviousTasks = React.createClass({
   render() {
     var context = this;
     var objectIds = this.state.previousObjectIds || [];
-    var rows = objectIds.map(objectId => {
-      var link = "#" + objectId;
-      return (<li key={objectId}><a href={link} onClick={context.props.handleDropdownClose}>{objectId}</a></li>);
-    });
-    rows.reverse(); // show most recent first
+
+    var rows;
+    if(objectIds.length){
+      rows = objectIds.map(objectId => {
+        var link = "#" + objectId;
+        return (<li key={objectId}><a href={link} onClick={context.props.handleDropdownClose}>{objectId}</a></li>);
+      });
+      rows.reverse(); // show most recent first
+    }
+    else{
+      rows = <li>No History</li>;
+    }
+
 
     return (
       <div className="previoustasks-dropdown">

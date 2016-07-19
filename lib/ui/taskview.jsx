@@ -4,6 +4,7 @@ var utils           = require('../utils');
 var format          = require('../format');
 var _               = require('lodash');
 var TaskInfo        = require('./taskinfo');
+var TaskActions      = require('./taskactions');
 var RunInfo         = require('./runinfo');
 
 /** Takes a task status structure and renders tabs for taskInfo and runInfo */
@@ -44,6 +45,7 @@ var TaskView = React.createClass({
       <div className="task-view">
         <bs.Nav bsStyle="tabs" activeKey={`${this.state.currentTab}`} onSelect={this.setCurrentTab}>
           <bs.NavItem eventKey={''} key={''}>Task</bs.NavItem>
+          <bs.NavItem eventKey={'payload'} key={''}>Actions</bs.NavItem>
           {initialRuns.map(({ runId }) => <bs.NavItem eventKey={`${runId}`} key={`${runId}`}>Run {runId}</bs.NavItem>)}
           {extraRuns.length ?
             <bs.NavDropdown
@@ -69,8 +71,11 @@ var TaskView = React.createClass({
   /** Render current tab */
   renderCurrentTab: function() {
     // Empty string is the task tab, but zero is a possible value
-    if (this.state.currentTab === '') {
+    if (this.state.currentTab === '' ) {
       return <TaskInfo status={this.props.status} />;
+    }
+    else if(this.state.currentTab === 'payload'){
+      return <TaskActions status={this.props.status} />;
     }
     // Check if we have the run in current tab
     let run = this.props.status.runs[this.state.currentTab];
