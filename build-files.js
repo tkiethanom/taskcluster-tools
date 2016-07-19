@@ -40,7 +40,7 @@ module.exports = [
   // Task Inspector
   'task-inspector/index.jade',
   'task-inspector/app.jsx',
-  'task-inspector/app.less',
+  'task-inspector/app.scss',
 
   // Task-Graph Inspector
   'task-graph-inspector/index.jade',
