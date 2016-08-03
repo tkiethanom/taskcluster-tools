@@ -119,9 +119,9 @@ var TaskInspector = React.createClass({
 
     return (
       <span>
-        <div className="module-header">
+        <div className="text-center">
           <h1>Task Inspector</h1>
-          <p>This tool lets you inspect a task given the <code>taskId</code></p>
+          <h2>This tool lets you inspect a task given the <code>taskId</code></h2>
         </div>
         <bs.Row>
           <bs.Col md={12}>
@@ -150,11 +150,13 @@ var TaskInspector = React.createClass({
                     ref="taskInspectorDropdown"
                     open={this.state.dropdownOpen}
                     onToggle={this.handleDropdownToggle}
+                    noCaret={false}
                   >
                     <PreviousTasksDropdown objectId={this.state.taskId} objectType="taskId" handleDropdownClose={this.handleDropdownClose} />
                   </bs.DropdownButton>
                 </bs.InputGroup>
               </bs.FormGroup>
+              <p className="text-right"> <a href="/index">Find by Index </a></p>
             </form>
           </bs.Col>
         </bs.Row>
@@ -165,6 +167,7 @@ var TaskInspector = React.createClass({
             ref="taskView"
             status={this.state.status}
             hashEntry={this.nextHashEntry()}/>
+
         ) : (
           undefined
         ))

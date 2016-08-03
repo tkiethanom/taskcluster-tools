@@ -60,7 +60,7 @@ module.exports = [
   // Aws Provisioner
   'aws-provisioner/index.jade',
   'aws-provisioner/app.jsx',
-  'aws-provisioner/app.less',
+  'aws-provisioner/app.scss',
 
   // Index Browser
   'index/index.jade',

@@ -6,29 +6,8 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import "./custom-vars.scss";
 @import "assets/font-awesome/css/font-awesome.css";
 
-#navbar .navbar-header {
-  float: left;
-}
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic);
 
-#navbar nav.navbar-inverse .navbar-brand {
-  color: #00d8ff;
-  padding-top: 0;
-  line-height: 50px;
-  float: none;
-}
+@import "./theme.scss";
 
-#navbar .navbar-brand > img {
-  display: inline;
-}
-
-#navbar nav.navbar-inverse .navbar-text {
-  color: #fff;
-}
-
-#navbar nav.navbar {
-  p {
-    margin: 0;
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
-  }
-}
+@import "./navigation.scss";

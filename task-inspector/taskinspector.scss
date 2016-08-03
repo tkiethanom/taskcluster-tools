@@ -1,14 +1,28 @@
 @import "../lib/ui/taskview.scss";
 @import "../lib/ui/previoustasks-dropdown.scss";
-
-.module-header {
-  text-align: center;
-}
+@import "../lib/custom-vars.scss";
 
 .task-inspector-form {
   width: 100%;
   max-width: 600px;
   margin: auto;
+
+  label{
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .dropdown-menu{
+    color: $xdark-color;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: $default-border-radius;
+    border-bottom-left-radius: $default-border-radius;
+
+    a{
+      color: $primary-color;
+    }
+  }
 }
 
 .task-inspector-input-group {
@@ -20,5 +34,8 @@
 
   .form-control-feedback {
     right: 35px;
+  }
+  .btn{
+    padding: 6px 12px;
   }
 }

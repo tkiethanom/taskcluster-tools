@@ -1,0 +1,134 @@
+@import "./custom-vars.scss";
+
+body{
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  background-color: $xdark-color;
+  color: $xlight-color
+}
+
+h1{
+  font-size: 34px;
+  color: $light-color;
+  font-weight: 600;
+  margin-bottom: $default-margin-bottom
+}
+h2{
+  font-size: 24px;
+  color: $primary-color;
+  font-weight: 400;
+  margin-bottom: $default-margin-bottom
+}
+h3{
+  font-size: 18px;
+  color: $xlight-color;
+  font-weight: 400;
+  margin-bottom: $default-margin-bottom
+}
+a{
+  color: $alternate-color;
+  text-decoration: underline;
+}
+a:hover{
+  color: $alternate-color;
+  text-decoration: none;
+}
+.popover{
+  border-radius: 0;
+  color: $xdark-color;
+}
+.nav.nav-tabs{
+  li > a{
+    background-color: $xlight-color;
+    color: $xdark-color;
+    border: 0;
+    border-bottom: 1px solid $xlight-color;
+    text-decoration: none;
+    margin-right: 5px;
+    padding: 10px 20px;
+  }
+  li > a:hover,
+  li > a:active,
+  li > a:focus{
+    border: 0;
+    border-bottom: 1px solid $xlight-color;
+  }
+  li.active > a{
+    background-color: $alternate-color;
+    color: $xdark-color;
+  }
+}
+dd{
+  margin-bottom: 5px;
+}
+dt{
+  margin-bottom: 5px;
+}
+dl{
+  padding-bottom: 30px;
+  margin-bottom: 0;
+}
+.label{
+  font-size: 12px;
+}
+pre{
+  border: 0;
+  color: $xlight-color;
+  background-color: $xdark-color;
+  border-radius: 0;
+  margin-bottom: 15px;
+}
+.task-view{
+  margin-bottom: 15px;
+}
+.tab-pane{
+  background-color: $medium-color;
+  color: $white-color;
+
+  hr{
+    border-color: $xlight-color;
+    margin-top: 10px;
+    margin-bottom: $default-margin-bottom;
+  }
+}
+.btn{
+  padding: 10px 20px;
+  margin-right: 5px;
+}
+.btn.btn-sm{
+  padding: 5px 10px;
+}
+.btn.btn-lg{
+  padding: 20px 40px;
+}
+.btn.btn-default{
+  color: $xdark-color;
+  background-color: $xlight-color;
+}
+.btn.btn-primary{
+  color: $white-color;
+  background-color: $primary-color;
+}
+.btn.pull-right{
+  margin-right: 0;
+  margin-left: 5px;
+}
+.tooltip {
+  .tooltip-inner{
+    background-color: $white-color;
+    color: $xdark-color;
+  }
+
+  &.top .tooltip-arrow {
+    border-top-color: $white-color;
+  }
+  &.right .tooltip-arrow {
+    border-right-color: $white-color;
+  }
+  &.left .tooltip-arrow {
+    border-left-color: $white-color;
+  }
+  &.bottom .tooltip-arrow {
+    border-bottom-color: $white-color;
+  }
+}

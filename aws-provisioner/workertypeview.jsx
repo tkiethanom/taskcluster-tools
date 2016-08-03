@@ -21,9 +21,11 @@ var WorkerTypeResources = React.createClass({
     return (
       <span>
         <h3>Running Instances</h3>
+        <p>
         We have&nbsp;
         {this.props.awsState.instances.length}
         &nbsp;instances running with total capacity of {this.runningCapacity()}.
+        </p>
         <bs.Table>
           <thead>
             <tr>
@@ -42,9 +44,11 @@ var WorkerTypeResources = React.createClass({
           </tbody>
         </bs.Table>
         <h3>Pending Instances</h3>
+        <p>
         We have {this.props.awsState.internalTrackedRequests.length}
         &nbsp;instances starting up with total capacity of&nbsp;
         {this.pendingCapacity()}.
+        </p>
         <bs.Table>
           <thead>
             <tr>
@@ -63,9 +67,11 @@ var WorkerTypeResources = React.createClass({
           </tbody>
         </bs.Table>
         <h3>Spot Requests</h3>
+        <p>
         We have spot requests for&nbsp;
         {this.props.awsState.requests.length}
         &nbsp;instances with total capacity of {this.spotReqCapacity()}.
+        </p>
         <bs.Table>
           <thead>
             <tr>
@@ -226,28 +232,31 @@ var WorkerTypeStatus = React.createClass({
       this.props.awsState.requests.map(_.property('zone'))
     );
     return (
-      <bs.Table>
-        <thead>
-          <tr>
-            <th>Instance Type</th>
-            <th>Availability Zone</th>
-            <th>Running Capacity</th>
-            <th>Pending Capacity</th>
-            <th>Requested Spot Capacity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            _.flatten(
-              this.props.workerType.instanceTypes.map(instTypeDef => {
-                return availabilityZones.map(availabilityZone => {
-                  return this.renderRow(instTypeDef, availabilityZone)
-                });
-              })
-            )
-          }
-        </tbody>
-      </bs.Table>
+      <span>
+        <br/>
+        <bs.Table>
+          <thead>
+            <tr>
+              <th>Instance Type</th>
+              <th>Availability Zone</th>
+              <th>Running Capacity</th>
+              <th>Pending Capacity</th>
+              <th>Requested Spot Capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              _.flatten(
+                this.props.workerType.instanceTypes.map(instTypeDef => {
+                  return availabilityZones.map(availabilityZone => {
+                    return this.renderRow(instTypeDef, availabilityZone)
+                  });
+                })
+              )
+            }
+          </tbody>
+        </bs.Table>
+      </span>
     );
   },
 
@@ -352,23 +361,23 @@ var WorkerTypeView = React.createClass({
     return  this.renderWaitFor('workerType') ||
             this.renderWaitFor('pendingTasks') || (
       <div>
-        <bs.Nav bsStyle="tabs"
-                activeKey={'' + this.state.currentTab}
-                onSelect={this.setCurrentTab}>
-            <bs.NavItem eventKey={''} key={''}>Status</bs.NavItem>
-            <bs.NavItem eventKey={'view'} key={'view'}>
-              View Definition
-            </bs.NavItem>
-            <bs.NavItem eventKey={'edit'} key={'edit'}>
-              Edit Definition
-            </bs.NavItem>
-            <bs.NavItem eventKey={'resources'} key={'resources'}>
-              EC2 Resources
-            </bs.NavItem>
-        </bs.Nav>
-        <div className="tab-content" style={{minHeight: 400}}>
+        <div className="text-center">
+          <bs.ButtonGroup >
+            <bs.Button active={this.state.currentTab == ''} onClick={() => this.setCurrentTab('')} >Status</bs.Button>
+            <bs.Button active={this.state.currentTab == 'edit'} onClick={() => this.setCurrentTab('edit')} >Definition</bs.Button>
+            <bs.Button active={this.state.currentTab == 'resources'} onClick={() => this.setCurrentTab('resources')} >EC2 Resources</bs.Button>
+          </bs.ButtonGroup>
+        </div>
+
+        <div className="tab-content" >
           <div className="tab-pane active">
-            {this.renderCurrentTab()}
+            <div className="container-fluid">
+              <bs.Row>
+                <bs.Col xs={12}>
+                  {this.renderCurrentTab()}
+                </bs.Col>
+              </bs.Row>
+            </div>
           </div>
         </div>
       </div>

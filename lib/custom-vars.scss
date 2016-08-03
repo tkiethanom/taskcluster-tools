@@ -3,12 +3,35 @@
    bootstrap vars overriding those found in "../node_modules/bootstrap/less/bootstrap/variables.less"
    ========================================================================== */
 
-$text-color:            lighten($gray-dark, 6%);
+/*$text-color:            lighten($gray-dark, 6%);
 $font-size-base:        15px;
+*/
 
 
 /* ==========================================================================
    custom vars
    ========================================================================== */
 
-$taskcluster-color:     #00D8FF;
+/*$taskcluster-color:     #00D8FF;*/
+
+$font-size-base: 12px;
+
+$xdark-color: #162533;
+$dark-color: #253441;
+$medium-color: #32475b;
+$light-color: #b0d2d6;
+$xlight-color: #e1e1e1;
+$white-color: #ffffff;
+
+$primary-color: #5ac0dd;
+$alternate-color: #fbaf5d;
+
+$status-color: #8f75d0;
+$status-alternate-color: #149bac;
+
+$default-margin-bottom: 30px;
+
+$default-border-radius: 4px;
+
+$tooltip-color: $xlight-color;
+$tooltip-arrow-color: $xlight-color;

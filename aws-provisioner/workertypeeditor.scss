@@ -1,0 +1,24 @@
+@import "../node_modules/codemirror/lib/codemirror.css";
+@import "../node_modules/codemirror/addon/lint/lint.css";
+@import "../node_modules/codemirror/theme/ambiance.css";
+@import "../lib/custom-vars.scss";
+
+.CodeMirror {
+  height:      auto;
+  background-color: $xdark-color !important;
+  box-shadow: none !important;
+}
+
+.CodeMirror-scroll {
+  overflow-x:   auto;
+  overflow-y:   hidden;
+}
+.CodeMirror-gutters{
+  background-color: $dark-color !important;
+  border: 1px solid $xdark-color !important;
+  box-shadow: none !important;
+}
+
+.btn-toolbar{
+  margin-bottom: 15px;
+}

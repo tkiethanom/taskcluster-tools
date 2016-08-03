@@ -1,0 +1,9 @@
+@import "workertypeeditor.scss";
+@import "workertypetable.scss";
+
+@import "../lib/format.scss";
+
+/* get rid of the silly margin on progress bars */
+.progress {
+  margin-bottom: 0;
+}

@@ -25,20 +25,28 @@ $(function() {
 
     obj.entries = entries.map(function(entry, index) {
       return (
-        <a href={entry.link} className="landingpage-entry" key={index} data-toggle="popover" data-content={entry.description} data-trigger="hover" data-placement="auto right">
+        <div className="landingpage-entry" key={index} >
           <bs.Row >
-            <bs.Col md={9} sm={9} mdPush={3} smPush={3} >
-              <h4>{entry.title}</h4>
-            </bs.Col>
-            <bs.Col md={3} sm={3} mdPull={9} smPull={9} >
-              <format.Icon  name={entry.icon || 'wrench'}
+            <bs.Col xs={3}>
+              <a href={entry.link} >
+                <format.Icon  name={entry.icon || 'wrench'}
                             size="3x"
-                            className="pull-left"
-                            style={{padding: '.2em .25em .15em'}}/>
+                            className="icon"
+                            />
+              </a>
             </bs.Col>
-            <div className="hide">{entry.description}</div>
+            <bs.Col xs={7}>
+              <a href={entry.link} >
+                <div className="text">{entry.title}</div>
+              </a>
+            </bs.Col>
+            <bs.Col xs={2} className="info-col">
+              <div className="info-icon">
+                <i className="fa fa-info-circle" tabIndex='10' data-toggle="popover" data-content={entry.description} data-trigger="manual" data-placement="auto bottom"></i>
+              </div>
+            </bs.Col>
           </bs.Row>
-        </a>
+        </div>
       );
     });
   });
@@ -49,13 +57,12 @@ $(function() {
         <bs.Row>
           <bs.Col md={8} mdOffset={2} sm={10} smOffset={1}>
             <div className="landingpage-header">
-              <img src={"/lib/assets/taskcluster-180.png"}/>
-              <h2><span className="light-font">Welcome to</span> <span className="landingpage-logo">TaskCluster Tools</span></h2>
+              <h1>Welcome to TaskCluster Tools</h1>
             </div>
           </bs.Col>
         </bs.Row>
         <bs.Row className="landingpage-description">
-          <bs.Col sm={12}>
+          <bs.Col sm={10} smOffset={1} md={6} mdOffset={3}>
             <p>
               A collection of tools for TaskCluster components and elements in the TaskCluster eco-system.
               Here you'll find tools to manage TaskCluster as well as run, debug, inspect and view tasks, task-graphs, and
@@ -68,8 +75,10 @@ $(function() {
         groups.map(function(group, index) {
           return (
             <bs.Col md={3} sm={6} key={index} className="landingpage-group">
-              <h3>{group.title}</h3>
-              {group.entries}
+              <div className="landingpage-group-name">{group.title}</div>
+              <div className="landingpage-group-entries">
+                {group.entries}
+              </div>
             </bs.Col>
           );
         })
@@ -81,6 +90,20 @@ $(function() {
   );
 
   $(function () {
-    $('[data-toggle="popover"]').popover();
-  })
+    $('[data-toggle="popover"]').click(function(){
+      if($(this).siblings('.popover').length){
+        //Close popover if clicking on the opened info icon
+        $(this).popover('hide');
+      }
+      else{
+        $(this).popover('show');
+
+        $(this).blur(function(){
+          //Close popover if clicking anywhere else
+          $(this).popover('hide');
+          $(this).unbind('blur');
+        });
+      }
+    });
+  });
 });

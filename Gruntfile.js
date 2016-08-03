@@ -155,17 +155,11 @@ module.exports = function(grunt) {
       },
       less: {
         tasks:  ['less'],
-        files:  ['**/*.less', '!node_modules/**', '!build/**'],
-        options: {
-          livereload: true
-        }
+        files:  ['**/*.less', '!node_modules/**', '!build/**']
       },
       sass: {
         tasks:  ['sass'],
-        files:  ['**/*.scss', '!node_modules/**', '!build/**'],
-        options: {
-          livereload: true
-        }
+        files:  ['**/*.scss', '!node_modules/**', '!build/**']
       },
       Gruntfile: {
         options: {

@@ -134,11 +134,11 @@ let Navigation = React.createClass({
 
     // Construct the navbar
     return (
-      <bs.Navbar fluid={true} inverse={true} staticTop={true}>
+      <bs.Navbar fluid={true} staticTop={true}>
         <bs.Navbar.Header>
           <bs.Navbar.Brand>
             <a href="/">
-              <img src="/lib/assets/taskcluster-36.png" width="36" height="36"/>
+              <img src="/lib/assets/taskcluster-nav-logo.png"/>
               &nbsp;
               TaskCluster Tools
             </a>
@@ -184,7 +184,7 @@ let Navigation = React.createClass({
     // if there are no credentials at all, then there is no menu -- just a sign-in link
     if (!this.state.credentials) {
       return <bs.NavItem onSelect={this.signIn} ref="credentials">
-        <bs.Glyphicon glyph="log-in"/>&nbsp;Sign in
+        Sign in
       </bs.NavItem>
     }
 
@@ -199,11 +199,9 @@ let Navigation = React.createClass({
       </bs.MenuItem>
       <bs.MenuItem divider />
       <bs.NavItem onSelect={this.signIn}>
-        <bs.Glyphicon glyph="log-in"/>&nbsp;
         Sign In
       </bs.NavItem>
       <bs.NavItem onSelect={this.signOut}>
-        <bs.Glyphicon glyph="log-out"/>&nbsp;
         Sign Out
       </bs.NavItem>
     </bs.NavDropdown>;

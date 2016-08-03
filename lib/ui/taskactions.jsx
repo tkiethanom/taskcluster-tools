@@ -36,7 +36,9 @@ var TaskActions = React.createClass({
       // task definition
       taskLoaded:         false,
       taskError:          undefined,
-      task:               undefined
+      task:               undefined,
+
+      runLocallyOpen:     false
     };
   },
 
@@ -105,7 +107,7 @@ var TaskActions = React.createClass({
           </dd>
           <dt>Debug</dt>
           <dd>
-            <ConfirmAction buttonSize="small"
+            <ConfirmAction
                            buttonStyle="default"
                            glyph="edit"
                            label="Edit and Re-create"
@@ -121,15 +123,27 @@ var TaskActions = React.createClass({
             <LoanerButton task={this.state.task}
                           taskId={status.taskId}
                           buttonStyle="default"
-                          buttonSize="small"/>&nbsp;
+                          />&nbsp;
           </dd>
         </dl>
         <dl className="dl-horizontal">
           <dt>Run Locally</dt>
           <dd>
-            <format.Code language='bash'>
-              {this.renderRunLocallyScript()}
-            </format.Code>
+            <div className="expand-bar">
+              <bs.Button bsSize="small" onClick={ ()=> this.setState({ runLocallyOpen: !this.state.runLocallyOpen })}>
+                <i className={(this.state.runLocallyOpen) ? 'fa fa-caret-up' : 'fa fa-caret-down' }></i>
+              </bs.Button>
+            </div>
+
+            <div className="local-code">
+              <bs.Collapse in={this.state.runLocallyOpen }>
+                <div>
+                  <format.Code language='bash'>
+                    {this.renderRunLocallyScript()}
+                  </format.Code>
+                </div>
+              </bs.Collapse>
+            </div>
           </dd>
         </dl>
       </span>

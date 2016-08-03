@@ -61,7 +61,13 @@ var TaskView = React.createClass({
         </bs.Nav>
         <div className="tab-content">
           <div className="tab-pane active">
-            {this.renderCurrentTab()}
+            <div className="container-fluid">
+              <bs.Row>
+                <bs.Col xs={12}>
+                  {this.renderCurrentTab()}
+                </bs.Col>
+              </bs.Row>
+            </div>
           </div>
         </div>
       </div>
