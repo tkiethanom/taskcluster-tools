@@ -18,12 +18,12 @@
   background-color: $primary-color;
 
   .navbar-nav{
-    &> li > a{
+    > li > a{
       color: $white-color;
       background-color: $primary-color;
       text-decoration: none;
     }
-    &> .open > a{
+    > .open > a{
       color: $xdark-color;
     }
   }
@@ -52,14 +52,14 @@
   }
 
   #navbar .navbar-text {
-    line-height: 60px;
+    line-height: 50px;
     float: left;
     margin: 0 0 0 15px;
   }
 
   #navbar nav .navbar-brand {
     padding-top: 0;
-    line-height: 60px;
+    line-height: 50px;
     font-size: 24px;
     font-weight: 400;
     float: none;
@@ -68,18 +68,20 @@
   #navbar .navbar-brand > img {
     position: relative;
     top: -2px;
+    height: 40px;
+    width: 40px;
   }
 
   #navbar nav.navbar {
-    min-height: 60px;
+    min-height: 50px;
     border: 0;
 
     .navbar-nav{
-      &> li > a{
-        padding: 20px;
-        height: 60px;
-        font-size: 18px;
-        border-left: 5px solid $xdark-color;
+      > li > a{
+        padding: 15px 20px 15px 20px;
+        height: 50px;
+        font-size: 15px;
+        border-left: 2px solid $xdark-color;
         min-width: 150px;
         text-align: center;
       }
@@ -89,8 +91,9 @@
       padding: 0;
 
       li a{
-        padding: 20px 30px;
+        padding: 15px 20px;
         min-width: 150px;
+        font-size: 14px;
       }
       li:last-of-type a{
         border-bottom-left-radius: 4px;

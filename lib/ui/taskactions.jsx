@@ -65,7 +65,7 @@ var TaskActions = React.createClass({
         <dl className="dl-horizontal">
           <dt>Actions</dt>
           <dd>
-            <ConfirmAction buttonSize="xsmall"
+            <ConfirmAction buttonSize=""
                            buttonStyle="primary"
                            disabled={status.state !== 'unscheduled'}
                            glyph="play"
@@ -80,8 +80,8 @@ var TaskActions = React.createClass({
             <RetriggerButton task={this.state.task}
                              taskId={status.taskId}
                              buttonStyle="success"
-                             buttonSize="xsmall"/>&nbsp;
-            <ConfirmAction buttonSize="xsmall"
+                             buttonSize=""/>&nbsp;
+            <ConfirmAction buttonSize=""
                            buttonStyle="danger"
                            disabled={isResolved}
                            glyph="stop"
@@ -129,14 +129,14 @@ var TaskActions = React.createClass({
         <dl className="dl-horizontal">
           <dt>Run Locally</dt>
           <dd>
-            <div className="expand-bar">
-              <bs.Button bsSize="small" onClick={ ()=> this.setState({ runLocallyOpen: !this.state.runLocallyOpen })}>
+            <div className="expand-bar" onClick={ ()=> this.setState({ runLocallyOpen: !this.state.runLocallyOpen })}>
+              <bs.Button bsSize="small" >
                 <i className={(this.state.runLocallyOpen) ? 'fa fa-caret-up' : 'fa fa-caret-down' }></i>
               </bs.Button>
             </div>
 
             <div className="local-code">
-              <bs.Collapse in={this.state.runLocallyOpen }>
+              <bs.Collapse className="local-code" in={this.state.runLocallyOpen }>
                 <div>
                   <format.Code language='bash'>
                     {this.renderRunLocallyScript()}
@@ -144,6 +144,7 @@ var TaskActions = React.createClass({
                 </div>
               </bs.Collapse>
             </div>
+
           </dd>
         </dl>
       </span>

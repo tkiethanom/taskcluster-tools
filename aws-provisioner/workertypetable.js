@@ -353,7 +353,8 @@ var WorkerTypeTable = React.createClass({
           workerType={this.state.selected}
           hashEntry={this.nextHashEntry()}
           reload={this.reload}
-          updateSummary={this.updateSummary}/>
+          updateSummary={this.updateSummary}
+        />
       </div>
     );
   },
@@ -373,13 +374,18 @@ var WorkerTypeTable = React.createClass({
   renderWorkerTypeCreator() {
     return (
       <div style={{marginBottom: 50}}>
-        <hr/>
         <h2>Create New WorkerType</h2>
         <WorkerTypeEditor
           definition={defaultWorkerType}
-          updated={this.workerTypeCreated}/>
+          updated={this.workerTypeCreated}
+          handleCancel={this.handleWorkerTypeCancel}
+        />
       </div>
     );
+  },
+
+  handleWorkerTypeCancel(){
+    this.setState({selected: ''});
   },
 
   async workerTypeCreated(workerType) {

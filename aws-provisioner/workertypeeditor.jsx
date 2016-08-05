@@ -41,7 +41,8 @@ var WorkerTypeEditor = React.createClass({
     updated:    React.PropTypes.func.isRequired,
     // WorkerType to update, null of none
     workerType: React.PropTypes.string,
-    definition: React.PropTypes.object.isRequired
+    definition: React.PropTypes.object.isRequired,
+    handleCancel: React.PropTypes.func
   },
 
   getInitialState() {
@@ -101,7 +102,11 @@ var WorkerTypeEditor = React.createClass({
                 Are you sure you want to delete the
                 <code>{this.props.workerType}</code> workerType?
               </ConfirmAction>
-            ) : undefined
+            ) : (
+              <bs.Button className='pull-right' onClick={this.props.handleCancel} >
+                Cancel
+              </bs.Button>
+            )
           }
           <ConfirmAction
             buttonClass='pull-right'

@@ -1,7 +1,7 @@
 @import "./custom-vars.scss";
 
 body{
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
   background-color: $xdark-color;
   color: $xlight-color
@@ -14,7 +14,7 @@ h1{
   margin-bottom: $default-margin-bottom
 }
 h2{
-  font-size: 24px;
+  font-size: 18px;
   color: $primary-color;
   font-weight: 400;
   margin-bottom: $default-margin-bottom
@@ -36,13 +36,18 @@ a:hover{
 .popover{
   border-radius: 0;
   color: $xdark-color;
+
+  .popover-title{
+    color: $xdark-color;
+  }
 }
 .nav.nav-tabs{
+  border: 0;
+
   li > a{
     background-color: $xlight-color;
     color: $xdark-color;
     border: 0;
-    border-bottom: 1px solid $xlight-color;
     text-decoration: none;
     margin-right: 5px;
     padding: 10px 20px;
@@ -51,7 +56,6 @@ a:hover{
   li > a:active,
   li > a:focus{
     border: 0;
-    border-bottom: 1px solid $xlight-color;
   }
   li.active > a{
     background-color: $alternate-color;
@@ -78,12 +82,16 @@ pre{
   border-radius: 0;
   margin-bottom: 15px;
 }
+code{
+  background-color: $light-color;
+  color: $xdark-color;
+}
 .task-view{
   margin-bottom: 15px;
 }
 .tab-pane{
-  background-color: $medium-color;
-  color: $white-color;
+  background-color: $dark-color;
+  color: $xlight-color;
 
   hr{
     border-color: $xlight-color;
@@ -94,6 +102,10 @@ pre{
 .btn{
   padding: 10px 20px;
   margin-right: 5px;
+}
+.btn.btn-xs{
+  font-size: 12px;
+  padding: 5px 10px;
 }
 .btn.btn-sm{
   padding: 5px 10px;
@@ -113,9 +125,20 @@ pre{
   margin-right: 0;
   margin-left: 5px;
 }
+.input-group{
+  .btn{
+    margin: 0;
+    height: 34px;
+    padding: 6px 12px;
+  }
+}
 .tooltip {
+  &.in{
+    opacity: 1;
+  }
+
   .tooltip-inner{
-    background-color: $white-color;
+    background: $white-color;
     color: $xdark-color;
   }
 
@@ -130,5 +153,72 @@ pre{
   }
   &.bottom .tooltip-arrow {
     border-bottom-color: $white-color;
+  }
+}
+
+.CodeMirror {
+  height:      auto;
+  background-color: $xdark-color !important;
+  box-shadow: none !important;
+  border: 1px solid $medium-color;
+}
+
+.CodeMirror-scroll {
+  overflow-x:   auto;
+  overflow-y:   hidden;
+}
+.CodeMirror-gutters{
+  background-color: $medium-color !important;
+  border: 1px solid $xdark-color !important;
+  box-shadow: none !important;
+}
+.CodeMirror-linenumber{
+  color: $light-color !important;
+}
+
+.breadcrumb{
+  background: $light-color;
+
+  a{
+    color: $xdark-color;
+  }
+  > li + li:before{
+    color: $xdark-color;
+  }
+  > .active{
+    color: $xdark-color;
+  }
+}
+table.table{
+  thead{
+    tr{
+      th{
+        background-color: $primary-color;
+        color: $white-color;
+      }
+    }
+  }
+  tbody{
+    tr{
+      td{
+
+      }
+
+      &:hover{
+        background: transparent;
+      }
+    }
+  }
+
+  tbody tr td .info,
+  tbody tr td .info:hover,
+  tbody tr.info td{
+    background: $medium-color;
+  }
+
+  &.table-hover{
+    tbody tr:hover{
+      background: $medium-color;
+    }
   }
 }

@@ -7,6 +7,10 @@
   max-width: 600px;
   margin: auto;
 
+  input{
+    color: $xdark-color;
+  }
+
   label{
     font-size: 14px;
     font-weight: 400;
@@ -22,6 +26,20 @@
     a{
       color: $primary-color;
     }
+    ul{
+      padding: 0;
+
+      li{
+        padding: 10px;
+      }
+      li:hover{
+        background: $xlight-color;
+
+        a{
+          color: $xdark-color;
+        }
+      }
+    }
   }
 }
 
@@ -30,6 +48,7 @@
 
   .dropdown-toggle {
     height: 34px;
+    margin-right: 0;
   }
 
   .form-control-feedback {
