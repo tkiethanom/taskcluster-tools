@@ -1,10 +1,11 @@
 var React           = require('react');
+var ReactDOM        = require("react-dom");
 var bs              = require('react-bootstrap');
 var utils           = require('../lib/utils');
 var taskcluster     = require('taskcluster-client');
 var _               = require('lodash');
 var TaskView        = require('../lib/ui/taskview');
-var PreviousTasks   = require('../lib/ui/previoustasks');
+var PreviousTasksDropdown   = require('../lib/ui/previoustasks-dropdown');
 
 
 /** Renders the task-inspector with a control to enter `taskId` into */
@@ -44,7 +45,8 @@ var TaskInspector = React.createClass({
       statusLoaded:   true,
       statusError:    undefined,
       status:         null,
-      taskIdInput:    ''
+      taskIdInput:    '',
+      dropdownOpen:   false
     };
   },
 
@@ -110,47 +112,62 @@ var TaskInspector = React.createClass({
   // Render a task-inspector
   render() {
     // Render
-    var invalidInput = !/^[A-Za-z0-9_-]{8}[Q-T][A-Za-z0-9_-][CGKOSWaeimquy26-][A-Za-z0-9_-]{10}[AQgw]$/.test(this.state.taskIdInput);
+    var invalidInput = false;
+    if(this.state.taskIdInput.length > 0){
+      invalidInput = !/^[A-Za-z0-9_-]{8}[Q-T][A-Za-z0-9_-][CGKOSWaeimquy26-][A-Za-z0-9_-]{10}[AQgw]$/.test(this.state.taskIdInput);
+    }
+
     return (
       <span>
-      <h1>Task Inspector</h1>
-      <p>This tool lets you inspect a task given the <code>taskId</code></p>
-      <form className="form-horizontal" onSubmit={this.handleSubmit}>
-        <div className="row">
-          <div className="col-sm-8">
-            <bs.Input
-              type="text"
-              ref="taskId"
-              placeholder="taskId"
-              value={this.state.taskIdInput}
-              label={<span>Enter <code>TaskId</code></span>}
-              bsStyle={invalidInput ? 'error' : null}
-              onChange={this.handleTaskIdInputChange}
-              hasFeedback
-              labelClassName="col-sm-2"
-              wrapperClassName="col-sm-10"/>
-
-            <div className="form-group">
-              <div className="col-sm-offset-2 col-sm-10">
-                <input type="submit"
-                    className="btn btn-primary"
-                    disabled={!this.state.statusLoaded || invalidInput}
-                    value="Inspect task"/>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-sm-4">
-            <PreviousTasks objectId={this.state.taskId} objectType="taskId"/>
-          </div>
+        <div className="text-center">
+          <h1>Task Inspector</h1>
+          <h2>This tool lets you inspect a task given the <code>taskId</code></h2>
         </div>
-      </form>
+        <bs.Row>
+          <bs.Col md={12}>
+            <form className="task-inspector-form" onSubmit={this.handleSubmit}>
+              <bs.FormGroup
+                controlId="formBasicText"
+                validationState={invalidInput ? 'error' : null}
+                className="task-inspector-form-group"
+              >
+                <bs.ControlLabel>Enter TaskId</bs.ControlLabel>
+                <bs.InputGroup className="task-inspector-input-group">
+                  <bs.FormControl
+                    type="text"
+                    ref="taskId"
+                    placeholder="taskId"
+                    value={this.state.taskIdInput}
+                    onChange={this.handleTaskIdInputChange}
+                  />
+                  <bs.FormControl.Feedback />
+                  <bs.DropdownButton
+                    componentClass={bs.InputGroup.Button}
+                    id="input-dropdown-addon"
+                    title=""
+                    pullRight={true}
+                    className="task-inspector-dropdown"
+                    ref="taskInspectorDropdown"
+                    open={this.state.dropdownOpen}
+                    onToggle={this.handleDropdownToggle}
+                    noCaret={false}
+                  >
+                    <PreviousTasksDropdown objectId={this.state.taskId} objectType="taskId" handleDropdownClose={this.handleDropdownClose} />
+                  </bs.DropdownButton>
+                </bs.InputGroup>
+              </bs.FormGroup>
+              <p className="text-right"> <a href="/index">Find by Index </a></p>
+            </form>
+          </bs.Col>
+        </bs.Row>
+
       {
         this.renderWaitFor('status') || (this.state.status ? (
           <TaskView
             ref="taskView"
             status={this.state.status}
             hashEntry={this.nextHashEntry()}/>
+
         ) : (
           undefined
         ))
@@ -159,10 +176,29 @@ var TaskInspector = React.createClass({
     );
   },
 
+  handleDropdownToggle(){
+    if(this.state.dropdownOpen){
+      this.setState({
+        dropdownOpen: false
+      });
+    }
+    else{
+      this.setState({
+        dropdownOpen: true
+      });
+    }
+  },
+
+  handleDropdownClose(){
+    this.setState({
+      dropdownOpen: false
+    });
+  },
+
   /** Update TaskIdInput to reflect input */
   handleTaskIdInputChange() {
     this.setState({
-      taskIdInput:      this.refs.taskId.getInputDOMNode().value.trim()
+      taskIdInput: ReactDOM.findDOMNode(this.refs.taskId).value.trim()
     });
   },
 

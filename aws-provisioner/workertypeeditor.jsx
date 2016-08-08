@@ -41,7 +41,8 @@ var WorkerTypeEditor = React.createClass({
     updated:    React.PropTypes.func.isRequired,
     // WorkerType to update, null of none
     workerType: React.PropTypes.string,
-    definition: React.PropTypes.object.isRequired
+    definition: React.PropTypes.object.isRequired,
+    handleCancel: React.PropTypes.func
   },
 
   getInitialState() {
@@ -60,9 +61,10 @@ var WorkerTypeEditor = React.createClass({
   render() {
     return (
       <span>
+        <br/>
         {
           this.props.workerType ? (
-            <h3>Update <code>{this.props.workerType}</code></h3>
+            null
           ) : (
             <bs.Input
               type='text'
@@ -90,10 +92,25 @@ var WorkerTypeEditor = React.createClass({
           theme="ambiance"/>
         <br/>
         <bs.ButtonToolbar>
+          {
+            this.props.workerType ? (
+              <ConfirmAction
+                buttonClass='pull-right'
+                label='Remove'
+                action={this.remove}
+                success='Removed WorkerType'>
+                Are you sure you want to delete the
+                <code>{this.props.workerType}</code> workerType?
+              </ConfirmAction>
+            ) : (
+              <bs.Button className='pull-right' onClick={this.props.handleCancel} >
+                Cancel
+              </bs.Button>
+            )
+          }
           <ConfirmAction
-            buttonStyle='primary'
-            glyph='ok'
-            label={this.props.workerType ? 'Update WorkerType' : 'Create WorkerType'}
+            buttonClass='pull-right'
+            label='Save'
             disabled={this.state.invalidDefinition ||
                       this.workerTypeValidationState() === 'error'}
             action={this.props.workerType ? this.save : this.create}
@@ -104,19 +121,7 @@ var WorkerTypeEditor = React.createClass({
             <br/>
             If there is a minimum number of instances, they will be provisioned.
           </ConfirmAction>
-          {
-            this.props.workerType ? (
-              <ConfirmAction
-                buttonStyle='danger'
-                glyph='remove'
-                label='Remove WorkerType'
-                action={this.remove}
-                success='Removed WorkerType'>
-                Are you sure you want to delete the
-                <code>{this.props.workerType}</code> workerType?
-              </ConfirmAction>
-            ) : undefined
-          }
+
         </bs.ButtonToolbar>
       </span>
     );

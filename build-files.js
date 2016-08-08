@@ -45,7 +45,7 @@ module.exports = [
   // Task Inspector
   'task-inspector/index.jade',
   'task-inspector/app.jsx',
-  'task-inspector/app.less',
+  'task-inspector/app.scss',
 
   // Task-Graph Inspector
   'task-graph-inspector/index.jade',
@@ -65,7 +65,7 @@ module.exports = [
   // Aws Provisioner
   'aws-provisioner/index.jade',
   'aws-provisioner/app.jsx',
-  'aws-provisioner/app.less',
+  'aws-provisioner/app.scss',
 
   // AMI set
   'ami-sets/index.jade',

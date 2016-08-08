@@ -1,0 +1,18 @@
+@import "./custom-vars.scss";
+
+.hljs {
+  color: $xlight-color;
+  background: $xdark-color;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: $xlight-color;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: $light-color;
+}

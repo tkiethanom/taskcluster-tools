@@ -13,8 +13,8 @@ var hashManager = utils.createHashManager({
 $(function() {
   ReactDOM.render(
     (
-      <bs.Row style={{marginBottom: 50}}>
-        <bs.Col md={10} mdOffset={1}>
+      <bs.Row>
+        <bs.Col md={12} >
           <TaskInspector hashEntry={hashManager.root()}/>
         </bs.Col>
       </bs.Row>

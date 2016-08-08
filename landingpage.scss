@@ -1,0 +1,120 @@
+@import "./lib/format";
+@import "./lib/custom-vars";
+
+.landingpage-entries > .row:first-of-type {
+  color: white;
+  position: relative;
+  //accounts for navbar's margin-bottom
+  //top: -22px;
+  overflow: hidden;
+}
+
+.landingpage-header {
+  text-align: center;
+}
+
+.landingpage-description {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: $default-margin-bottom;
+  text-align: center;
+
+  p{
+    color: $primary-color;
+  }
+}
+
+.landingpage-header img {
+  position: absolute;
+  opacity: 0.18;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.landingpage-header h2 {
+  position: relative;
+  font-size: 38px;
+  z-index: 1;
+}
+
+.landingpage-logo {
+  color: $primary-color;
+}
+
+.light-font {
+  font-weight: 300;
+}
+
+.landingpage-entry {
+  display: block;
+  text-decoration: none !important;
+  margin-bottom: 5px;
+  background-color: $dark-color;
+
+  a{
+    display: block;
+    outline: none;
+    text-decoration: none;
+
+    .text{
+      color: $xlight-color;
+      padding: 40px 0 30px 10px;
+      font-size: 14px;
+      min-height: 49px;
+    }
+
+    .icon{
+      color: $primary-color;
+      padding: 30px 0 30px 30px;
+    }
+  }
+
+  .info-icon{
+    padding: 42px 30px 0 0;
+    text-align: right;
+    cursor: pointer;
+
+    i{
+      outline: none;
+      font-size: 18px;
+      color: $xlight-color;
+    }
+    i:hover{
+      color: $alternate-color;
+    }
+  }
+
+  .info-col{
+    padding: 0;
+  }
+}
+
+.landingpage-entry:hover {
+
+  .text{
+    color: $alternate-color;
+  }
+  .icon{
+    color: $alternate-color;
+  }
+}
+
+.landingpage-group {
+  margin-bottom: $default-margin-bottom;
+
+  .landingpage-group-entries{
+
+  }
+
+  .popover {
+    width: 400px;
+  }
+
+  .landingpage-group-name{
+    color: $xlight-color;
+    font-size: 24px;
+    margin-bottom: $default-margin-bottom;
+  }
+}

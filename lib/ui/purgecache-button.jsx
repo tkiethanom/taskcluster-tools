@@ -25,7 +25,7 @@ let PurgeCacheButton = React.createClass({
   },
   render() {
     return (
-      <ConfirmAction buttonSize="xsmall"
+      <ConfirmAction buttonSize=""
                      buttonStyle="danger"
                      disabled={this.props.caches === undefined}
                      glyph="trash"

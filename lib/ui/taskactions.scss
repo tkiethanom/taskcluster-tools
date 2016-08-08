@@ -1,0 +1,12 @@
+@import "../custom-vars";
+
+.expand-bar{
+  padding: 5px;
+  text-align: right;
+  background-color: $xdark-color;
+
+  .btn{
+    margin-right: 0;
+  }
+}
+

@@ -2,6 +2,7 @@ var React             = require('react');
 var bs                = require('react-bootstrap');
 var utils             = require('../lib/utils');
 var taskcluster       = require('taskcluster-client');
+var $                 = require('jquery');
 var _                 = require('lodash');
 var format            = require('../lib/format');
 var WorkerTypeView    = require('./workertypeview');
@@ -63,13 +64,21 @@ var WorkerTypeRow = React.createClass({
         onClick={this.props.onClick}
         className={this.props.selected ? 'active' : undefined}
         style={{cursor: 'pointer'}}>
-        <td><code>{this.props.workerType.workerType}</code></td>
+        <td>{this.props.workerType.workerType}</td>
+        <td className="text-right">
+          {(this.props.workerType.runningCapacity + this.props.workerType.requestedCapacity + this.props.workerType.pendingCapacity) + '/' + this.props.workerType.maxCapacity }
+        </td>
         <td>
           <bs.OverlayTrigger placement='left' overlay={this.tooltip()}>
           {this.renderCapacityBar()}
           </bs.OverlayTrigger>
         </td>
-        <td>{this.state.pendingTasksLoaded ? this.state.pendingTasks.pendingTasks : "..."}</td>
+        <td className="text-center">{this.state.pendingTasksLoaded ? this.state.pendingTasks.pendingTasks + " Tasks" : "..."}</td>
+        <td>
+          <div className="worker-type-row-caret text-right">
+            {(this.props.selected) ? <i className="fa fa-caret-up"></i> : <i className="fa fa-caret-down"></i>}
+          </div>
+        </td>
       </tr>
     );
   },
@@ -233,19 +242,39 @@ var WorkerTypeTable = React.createClass({
 
   load() {
     return {
-      workerTypeSummaries: this.awsProvisioner.listWorkerTypeSummaries(),
+      workerTypeSummaries: this.awsProvisioner.listWorkerTypeSummaries()
     };
   },
 
   setSelected(workerType) {
-    this.setState({selected: workerType});
+    var context = this;
+
+    if(this.state.selected == ''){
+      this.setState({selected: workerType});
+    }
+    else{
+      $('.worker-type-view-container').slideUp(400, function(){
+        if(context.state.selected == workerType){
+          context.setState({selected: ''});
+        }
+        else{
+          context.setState({selected: workerType});
+        }
+      });
+    }
   },
 
   render() {
-    return <span>
-      <bs.ButtonToolbar>
+    return <div>
+      <div className="text-center">
+        <h1>AWS-Provisioner</h1>
+        <h2>Manage Amazon Web Services Workertypes.</h2>
+      </div>
+
+      <bs.ButtonToolbar >
         <bs.Button
-          bsStyle='primary'
+          className='pull-right'
+          bsStyle='default'
           onClick={this.setSelected.bind(this, 'create:worker-type')}
           style={{marginBottom: 10}}>
           <bs.Glyphicon glyph="plus"/>&nbsp;
@@ -255,39 +284,56 @@ var WorkerTypeTable = React.createClass({
       {
         this.state.selected === 'create:worker-type' ? (
           this.renderWorkerTypeCreator()
-        ) : (
-          this.renderWorkerTypeView()
-        )
+        ) : null
       }
-      <span>{
-        this.renderWaitFor('workerTypeSummaries') || this.renderWorkerTypeTable()
-      }</span>
-      </span>
+      <div >
+        {this.renderWorkerTypeTable()}
+        {this.renderWaitFor('workerTypeSummaries') }
+      </div>
+    </div>
   },
 
   renderWorkerTypeTable() {
     return (
       <span>
-      <h2>Worker Types</h2>
-      <bs.Table>
+      <bs.Table className="worker-type-table">
         <thead>
           <tr>
             <th>WorkerType</th>
+            <th></th>
             <th className='col-md-6'>Capacity</th>
             <th>Pending Tasks</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
         {
-          this.state.workerTypeSummaries.map(workerType => {
-            return <WorkerTypeRow
-                      key={workerType.workerType}
-                      provisionerId={this.props.provisionerId}
-                      workerType={workerType}
-                      selected={this.state.selected === workerType.workerType}
-                      onClick={this.setSelected.bind(this, workerType.workerType)}
-                      summary={workerType}/>;
-          })
+          (this.state.workerTypeSummaries) ?
+            this.state.workerTypeSummaries.map(workerType => {
+              var output = [];
+              output.push(<WorkerTypeRow
+                        key={workerType.workerType}
+                        provisionerId={this.props.provisionerId}
+                        workerType={workerType}
+                        selected={this.state.selected === workerType.workerType}
+                        onClick={this.setSelected.bind(this, workerType.workerType)}
+                        summary={workerType}/>);
+
+              if(this.state.selected === workerType.workerType){
+                output.push(
+                  <tr className="worker-type-view-row">
+                    <td colSpan="5">
+                      <div className="worker-type-view-container" key="worker-type-view-container">
+                        {this.renderWorkerTypeView()}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              }
+
+              return output;
+            })
+          : null
         }
         </tbody>
       </bs.Table>
@@ -301,21 +347,19 @@ var WorkerTypeTable = React.createClass({
     }
 
     return (
-      <div style={{marginBottom: 50}}>
-        <hr/>
-        <h2>Worker Type: <code>{this.state.selected}</code></h2>
+      <div style={{paddingTop: 20}}>
         <WorkerTypeView
           provisionerId={this.props.provisionerId}
           workerType={this.state.selected}
           hashEntry={this.nextHashEntry()}
           reload={this.reload}
-          updateSummary={this.updateSummary}/>
+          updateSummary={this.updateSummary}
+        />
       </div>
     );
   },
 
   updateSummary(workerType, summary) {
-    console.log("updateSummary", workerType, summary);
     var workerTypeSummaries = this.state.workerTypeSummaries.map(function(wt) {
       if (wt.workerType === workerType) {
         // work around https://github.com/taskcluster/aws-provisioner/pull/70
@@ -330,13 +374,18 @@ var WorkerTypeTable = React.createClass({
   renderWorkerTypeCreator() {
     return (
       <div style={{marginBottom: 50}}>
-        <hr/>
         <h2>Create New WorkerType</h2>
         <WorkerTypeEditor
           definition={defaultWorkerType}
-          updated={this.workerTypeCreated}/>
+          updated={this.workerTypeCreated}
+          handleCancel={this.handleWorkerTypeCancel}
+        />
       </div>
     );
+  },
+
+  handleWorkerTypeCancel(){
+    this.setState({selected: ''});
   },
 
   async workerTypeCreated(workerType) {

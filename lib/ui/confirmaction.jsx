@@ -16,6 +16,8 @@ var ConfirmAction = React.createClass({
     disabled:       React.PropTypes.bool.isRequired,
     glyph:          React.PropTypes.string.isRequired,
     label:          React.PropTypes.string.isRequired,
+    buttonClass:    React.PropTypes.string,
+
     // Text explaining action and success text for successful action
     children:       React.PropTypes.node.isRequired,
     success:        React.PropTypes.string.isRequired,
@@ -40,11 +42,13 @@ var ConfirmAction = React.createClass({
   },
 
   render() {
+    console.log(this.props.buttonClass);
     return (
       <bs.Button bsSize={this.props.buttonSize}
                  bsStyle={this.props.buttonStyle}
                  disabled={this.props.disabled}
-                 onClick={this.openDialog}>
+                 onClick={this.openDialog}
+                 className={this.props.buttonClass}>
         <bs.Glyphicon glyph={this.props.glyph}/>&nbsp;
         <span>{this.props.label}</span>&nbsp;
         {this.renderDialog()}

@@ -1,36 +1,54 @@
 let React                   = require('react');
 let ReactDOM                = require('react-dom');
+
 let $                       = require('jquery');
+global.jQuery               = require('jquery');
+let bootstrap               = require('bootstrap');
+
 let bs                      = require('react-bootstrap');
 let menu                    = require('./menu');
 let format                  = require('./lib/format');
 
-/** Split an array into chunks */
-var chunks = function(array, size) {
-  var results = [];
-  while (array.length) {
-    results.push(array.splice(0, size));
-  }
-  return results;
-};
-
 // Render component
 $(function() {
-  var entries = menu.filter(function(entry) {
-    return entry.type !== 'divider' && entry.display;
-  }).map(function(entry, index) {
-    return (
-      <bs.Col md={4} sm={6} key={index}>
-        <a href={entry.link} className="landingpage-entry">
-          <h4>{entry.title}</h4>
-          <format.Icon  name={entry.icon || 'wrench'}
-                        size="3x"
-                        className="pull-left"
-                        style={{padding: '.2em .25em .15em'}}/>
-          <format.Markdown>{entry.description}</format.Markdown>
-        </a>
-      </bs.Col>
-    );
+  var groups = [
+    {title: 'Tasks', group: 'tasks'},
+    {title: 'Manager', group: 'manager'},
+    {title: 'Tools', group: 'tools'},
+    {title: 'External Links', group: 'external-links'}
+  ];
+
+  groups.forEach(function(obj, index){
+    var entries = menu.filter(function(entry) {
+      return entry.type !== 'divider' && entry.display && entry.group === obj.group;
+    });
+
+    obj.entries = entries.map(function(entry, index) {
+      return (
+        <div className="landingpage-entry" key={index} >
+          <bs.Row >
+            <bs.Col xs={3}>
+              <a href={entry.link} >
+                <format.Icon  name={entry.icon || 'wrench'}
+                            size="3x"
+                            className="icon"
+                            />
+              </a>
+            </bs.Col>
+            <bs.Col xs={7}>
+              <a href={entry.link} >
+                <div className="text">{entry.title}</div>
+              </a>
+            </bs.Col>
+            <bs.Col xs={2} className="info-col">
+              <div className="info-icon">
+                <i className="fa fa-info-circle" tabIndex='10' data-toggle="popover" data-content={entry.description} data-trigger="manual" data-placement="auto bottom"></i>
+              </div>
+            </bs.Col>
+          </bs.Row>
+        </div>
+      );
+    });
   });
 
   ReactDOM.render(
@@ -39,13 +57,12 @@ $(function() {
         <bs.Row>
           <bs.Col md={8} mdOffset={2} sm={10} smOffset={1}>
             <div className="landingpage-header">
-              <img src={"/lib/assets/taskcluster-180.png"}/>
-              <h2><span className="light-font">Welcome to</span> <span className="landingpage-logo">TaskCluster Tools</span></h2>
+              <h1>Welcome to TaskCluster Tools</h1>
             </div>
           </bs.Col>
         </bs.Row>
         <bs.Row className="landingpage-description">
-          <bs.Col sm={12}>
+          <bs.Col sm={10} smOffset={1} md={6} mdOffset={3}>
             <p>
               A collection of tools for TaskCluster components and elements in the TaskCluster eco-system.
               Here you'll find tools to manage TaskCluster as well as run, debug, inspect and view tasks, task-graphs, and
@@ -53,17 +70,40 @@ $(function() {
             </p>
           </bs.Col>
         </bs.Row>
+        <bs.Row>
       {
-        chunks(entries, 3).map(function(cols, index) {
+        groups.map(function(group, index) {
           return (
-            <bs.Row key={index}>
-            {cols}
-            </bs.Row>
+            <bs.Col md={3} sm={6} key={index} className="landingpage-group">
+              <div className="landingpage-group-name">{group.title}</div>
+              <div className="landingpage-group-entries">
+                {group.entries}
+              </div>
+            </bs.Col>
           );
         })
       }
+        </bs.Row>
       </div>
     ),
     $('#container')[0]
   );
+
+  $(function () {
+    $('[data-toggle="popover"]').click(function(){
+      if($(this).siblings('.popover').length){
+        //Close popover if clicking on the opened info icon
+        $(this).popover('hide');
+      }
+      else{
+        $(this).popover('show');
+
+        $(this).blur(function(){
+          //Close popover if clicking anywhere else
+          $(this).popover('hide');
+          $(this).unbind('blur');
+        });
+      }
+    });
+  });
 });
