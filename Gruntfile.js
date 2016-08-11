@@ -204,7 +204,7 @@ module.exports = function(grunt) {
           '**/*.html',    '**/*.jade',
           '**/*.js',      '**/*.js.map',      '**/*.jsx',
           '**/*.css',     '**/*.css.map',     '**/*.less',
-          '**/*.svg',     '**/*.json'
+          '**/*.svg',     '**/*.json',        '**/*.scss'
         ],
       },
       binary: {
@@ -214,7 +214,7 @@ module.exports = function(grunt) {
           '!**/*.html',   '!**/*.jade',
           '!**/*.js',     '!**/*.js.map',     '!**/*.jsx',
           '!**/*.css',    '!**/*.css.map',    '!**/*.less',
-          '!**/*.svg',    '!**/*.json'
+          '!**/*.svg',    '!**/*.json',       '!**/*.scss'
         ],
       }
     },
@@ -359,6 +359,18 @@ module.exports = function(grunt) {
       }
     };
   });
+
+  // Compile sass files
+  files
+    .filter(RegExp.prototype.test.bind(/\.scss$/))
+    .map(path.relative.bind(path, __dirname))
+    .forEach(function(file) {
+      // Rule for compiling the file with sass
+      config.sass[file] = {
+        src:    file,
+        dest:   path.join('build', file.replace(/\.scss/, '.html'))
+      };
+    });
 
   // Copy over files to build/ as they are changed
   grunt.event.on('watch', function(action, filepath, target) {
