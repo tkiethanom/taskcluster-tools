@@ -6,13 +6,13 @@ var path = require('path')
 //    *.jade  -> build/*.html
 module.exports = [
   // Layout
-  'lib/layout.less',
+  'lib/layout.scss',
   'lib/layout.jsx',
 
   // Landing page
   'index.jade',
   'landingpage.jsx',
-  'landingpage.less',
+  'landingpage.scss',
 
   // Client Manager
   'auth/clients/index.jade',
